@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#2f9e41">
+  <meta name="description" content="BiblioWeb — biblioteca do Instituto Federal.">
+  <title>BiblioWeb</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<!-- A tela de login aparece primeiro; o app só é mostrado após entrar -->
+<body class="login-required">
+  <section class="login-screen" id="login-screen" aria-labelledby="gate-title">
+    <div class="login-top"><button class="theme-toggle" type="button" aria-label="Alternar modo escuro" aria-pressed="false" title="Alternar tema"><svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button></div>
+    <div class="login-card">
+      <div class="logo logo-lg">Biblio<span>Web</span></div>
+      <h1 id="gate-title">Entrar</h1>
+      <div class="gate-roles">
+        <button class="gate-role selected" type="button" data-gate-role="student"><strong data-i="user">Aluno</strong></button>
+        <button class="gate-role" type="button" data-gate-role="librarian"><strong data-i="book">Bibliotecário</strong></button>
+      </div>
+      <form id="gate-login-form" class="gate-form">
+        <label for="gate-id">Matrícula ou e-mail</label><input id="gate-id" required autocomplete="username" placeholder="Sua matrícula ou e-mail">
+        <label for="gate-password">Senha</label><input id="gate-password" type="password" required autocomplete="current-password" placeholder="Qualquer senha">
+        <button class="btn btn-primary gate-submit" type="submit">Entrar</button>
+      </form>
+      <p class="muted login-note">Informe qualquer matrícula ou e-mail e uma senha para entrar.</p>
+    </div>
+  </section>
+
+  <!-- Aplicação principal: menu lateral, topo e páginas -->
+  <div class="app" id="app" hidden>
+    <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+      <a class="logo" href="#inicio">Biblio<span>Web</span></a>
+      <nav id="nav"></nav>
+      <div class="side-foot"><div class="side-user" id="side-user"></div><button class="btn btn-outline btn-small side-logout" type="button" data-logout data-i="logout">Sair da conta</button></div>
+    </aside>
+    <div class="scrim" id="scrim"></div>
+    <div class="main-wrap">
+      <header class="topbar">
+        <div class="topbar-left"><button class="menu-btn" id="mobile-menu" type="button" aria-label="Abrir menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button><h1 id="page-title">Início</h1></div>
+        <button class="theme-toggle" type="button" aria-label="Alternar modo escuro" aria-pressed="false" title="Alternar tema"><svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></button>
+      </header>
+
+      <main id="main">
+        <section class="page" id="page-inicio" hidden>
+          <div id="home-alert" class="alert" hidden></div>
+          <div class="welcome">
+            <div><h2 id="welcome-title">Bem-vindo(a)!</h2><p>Pesquise no acervo, acompanhe seus empréstimos e faça reservas.</p></div>
+            <form id="home-search" class="home-search"><label class="sr-only" for="home-q">Buscar no acervo</label><input id="home-q" placeholder="Título, autor ou ISBN" autocomplete="off"><button class="btn btn-primary" type="submit" data-i="search">Pesquisar</button></form>
+          </div>
+          <div class="stats">
+            <div><i data-i="book"></i><strong id="stat-titles">0</strong><span>Títulos catalogados</span></div>
+            <div><i data-i="copy"></i><strong id="stat-copies">0</strong><span>Exemplares no acervo</span></div>
+            <div><i data-i="tag"></i><strong id="stat-genres">0</strong><span>Gêneros literários</span></div>
+            <div><i data-i="loan"></i><strong id="stat-loans">0</strong><span id="stat-loans-label">Empréstimos ativos</span></div>
+          </div>
+          <h3 class="block-title">Explore por gênero literário</h3>
+          <div class="chips" id="genre-chips"></div>
+          <div class="two-col">
+            <div class="panel"><span class="kicker">FUNCIONAMENTO</span><h3>Horário de atendimento</h3>
+              <div class="hours-row"><span>Segunda a sexta</span><strong>08h – 21h</strong></div>
+              <div class="hours-row"><span>Sábado</span><strong>08h – 12h</strong></div>
+              <div class="hours-row"><span>Domingos e feriados</span><strong>Fechado</strong></div></div>
+            <div class="panel"><span class="kicker">REGRAS</span><h3>Empréstimos e reservas</h3>
+              <p class="muted">Prazo padrão de 14 dias, até 3 empréstimos ativos e até 2 renovações. Ao reservar um título disponível, retire-o no balcão em até 2 dias; se estiver emprestado, você entra na fila de espera.</p>
+              <p class="muted">Contato: biblioteca@instituto.edu.br</p></div>
+          </div>
+        </section>
+
+        <section class="page" id="page-acervo" hidden>
+          <div class="panel search-panel">
+            <div class="row-between"><div><h2>O que você está procurando?</h2><p class="muted">Pesquise por título, autor, gênero literário, editora ou ISBN.</p></div><button class="link-button" id="advanced-toggle" type="button">Pesquisa avançada <span>＋</span></button></div>
+            <form id="search-form" class="search-form"><label class="sr-only" for="search-query">Termo de pesquisa</label>
+              <div class="search-input-wrap"><input id="search-query" name="q" placeholder="Digite o título, autor ou palavra-chave..." autocomplete="off"><button class="clear-search" type="button" id="clear-search" aria-label="Limpar pesquisa">×</button></div>
+              <label class="sr-only" for="search-field">Pesquisar em</label>
+              <select id="search-field"><option value="all">Todos os campos</option><option value="title">Título</option><option value="author">Autor</option><option value="genre">Gênero literário</option><option value="publisher">Editora</option><option value="isbn">ISBN</option></select>
+              <button class="btn btn-primary" type="submit" data-i="search">Pesquisar</button></form>
+            <div class="advanced-panel" id="advanced-panel" hidden>
+              <div class="advanced-grid">
+                <label>Tipo de material<select id="filter-type"><option value="">Todos os materiais</option><option>Livro</option><option>Livro digital</option><option>Periódico</option><option>Trabalho acadêmico</option></select></label>
+                <label>Gênero literário<select id="filter-genre"></select></label>
+                <label>Ano de publicação<input id="filter-year" type="number" min="1400" max="2100" placeholder="Ex.: 2022"></label>
+                <label>Disponibilidade<select id="filter-availability"><option value="">Qualquer situação</option><option value="available">Com exemplar disponível</option><option value="unavailable">Somente emprestados</option></select></label>
+              </div>
+              <div class="form-actions"><button type="button" class="btn btn-ghost" id="advanced-clear">Limpar filtros</button><button type="button" class="btn btn-primary" id="advanced-apply">Aplicar filtros</button></div>
+            </div>
+            <div class="popular"><span>Buscas populares:</span><button data-search="programação">Programação</button><button data-search="Machado de Assis">Machado de Assis</button><button data-search="Orwell">Orwell</button><button data-search="metodologia">Metodologia</button></div>
+          </div>
+          <div class="toolbar">
+            <div class="muted" id="result-summary">Exibindo títulos</div>
+            <div class="toolbar-controls"><label class="sr-only" for="sort-books">Ordenar</label><select id="sort-books"><option value="relevance">Mais relevantes</option><option value="title">Título: A–Z</option><option value="year">Mais recentes</option></select><button class="view-toggle active" data-view="grid" aria-label="Grade">▦</button><button class="view-toggle" data-view="list" aria-label="Lista">☷</button></div>
+          </div>
+          <div id="catalog-results" class="book-grid"></div>
+          <div id="no-results" class="empty-state" hidden><h3>Nenhum material encontrado</h3><p>Tente outros termos ou remova alguns filtros.</p><button class="btn btn-outline" id="reset-search">Limpar pesquisa</button></div>
+          <div class="catalog-footer"><span id="catalog-count"></span><button class="btn btn-outline" id="load-more">Carregar mais títulos</button></div>
+        </section>
+
+        <!-- Página dinâmica: o JavaScript preenche com Minha conta, Administração etc. -->
+        <section class="page" id="page-dyn" hidden></section>
+      </main>
+      <footer class="site-footer">© 2026 BiblioWeb · Biblioteca do Instituto Federal · biblioteca@instituto.edu.br</footer>
+    </div>
+  </div>
+
+  <!-- Avisos rápidos (toast) e janela modal usados pelo JavaScript -->
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <div class="modal-backdrop" id="modal-backdrop" hidden><section class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><div class="modal-header"><div><span class="kicker" id="modal-kicker">BIBLIOWEB</span><h2 id="modal-title">Janela</h2></div><button class="icon-button" id="modal-close" aria-label="Fechar janela">×</button></div><div class="modal-content" id="modal-content"></div></section></div>
+  <script src="app.js"></script>
+</body>
+</html>
